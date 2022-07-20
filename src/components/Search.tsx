@@ -1,16 +1,37 @@
 import { IconButton, InputBase, Paper } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchResults } from '.';
-
+import { Book } from '../interfaces';
+import data from '../data/books.json'
 
 export const Search = () => {
 
     const [inputText, setInputText] = useState("");
+    const [searchText, setSearchText] = useState("");
+    const [bookList, setBookList] = useState<Array<Book>>(data.books);
+
+    useEffect(() => {
+        if (searchText) {
+            setBookList(data.books.filter(item => item.title.toLowerCase() === searchText));
+        }
+    }, [searchText])
+
     let inputHandler = (e: { target: { value: string; }; }) => {
         //convert input text to lower case
         let lowerCase = e.target.value.toLowerCase();
         setInputText(lowerCase);
+    };
+
+    let keyDownHandler = (e: any) => {
+        if (e.key === 'Enter') {
+            setSearchText(inputText);
+        }
+    }
+
+    let searchHandler = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        setSearchText(inputText);
     };
 
     return (
@@ -23,14 +44,15 @@ export const Search = () => {
                     <InputBase
                         sx={{ ml: 1, flex: 1 }}
                         placeholder="Search Books"
-                        inputProps={{ 'aria-label': 'search google maps' }}
+                        inputProps={{ 'aria-label': 'search book' }}
                         onChange={inputHandler}
+                        onKeyDown={keyDownHandler}
                     />
-                    <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                    <IconButton type="submit" onClick={searchHandler} sx={{ p: '10px' }} aria-label="search">
                         <SearchIcon />
                     </IconButton>
                 </Paper>
-                <SearchResults input={inputText} />
+                <SearchResults bookList={bookList} />
             </div>
         </div>
     )
