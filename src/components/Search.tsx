@@ -1,6 +1,6 @@
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { IconButton, InputBase, Paper } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import { useEffect, useState } from 'react';
 import { SearchResults } from '.';
 import { Book } from '../interfaces';
 import data from '../data/books.json'
@@ -9,13 +9,25 @@ export const Search = () => {
 
     const [inputText, setInputText] = useState("");
     const [searchText, setSearchText] = useState("");
-    const [bookList, setBookList] = useState<Array<Book>>(data.books);
+    const [bookList, setBookList] = useState<Array<Book>>([]);
 
     useEffect(() => {
         if (searchText) {
-            setBookList(data.books.filter(item => item.title.toLowerCase() === searchText));
+            search(searchText, data.books, setBookList);
         }
     }, [searchText])
+
+    const search = (searchTerm: string, jsonArrayData: Book[], setFilteredData: Dispatch<SetStateAction<Book[]>>) => {
+        const filteredData = jsonArrayData.filter((every) => {
+            return (
+                every.title.toLowerCase().includes(searchTerm) ||
+                every.isbn.toLowerCase().includes(searchTerm) ||
+                every.description.toLowerCase().includes(searchTerm) ||
+                every.author.toLowerCase().includes(searchTerm)
+            );
+        });
+        setFilteredData(filteredData);
+    }
 
     let inputHandler = (e: { target: { value: string; }; }) => {
         //convert input text to lower case
