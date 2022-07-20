@@ -1,10 +1,8 @@
-import data from "../data/books.json"
 import { Book } from '../interfaces';
 interface Search {
-    input: string;
+    bookList: Array<Book>;
 }
-export const SearchResults: React.FC<Search> = ({ input }) => {
-    const bookList: Book[] = data.books;
+export const SearchResults: React.FC<Search> = ({ bookList }) => {
     return (
         < div className="search-list" id="search-list" role="list">
             {bookList?.map((book) => (
