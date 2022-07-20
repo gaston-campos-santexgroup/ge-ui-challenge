@@ -20,10 +20,15 @@ export const Search = () => {
     const search = (searchTerm: string, jsonArrayData: Book[], setFilteredData: Dispatch<SetStateAction<Book[]>>) => {
         const filteredData = jsonArrayData.filter((every) => {
             return (
-                every.title.toLowerCase().includes(searchTerm) ||
-                every.isbn.toLowerCase().includes(searchTerm) ||
-                every.description.toLowerCase().includes(searchTerm) ||
-                every.author.toLowerCase().includes(searchTerm)
+                searchTerm.split(" ").map(searchWord => {
+                    return (
+                        every.title.toLowerCase().includes(searchWord) ||
+                        every.isbn.toLowerCase().includes(searchWord) ||
+                        every.description.toLowerCase().includes(searchWord) ||
+                        every.author.toLowerCase().includes(searchWord)
+                    )
+                }).findIndex(match => match) !== -1 ? true : false
+
             );
         });
         setFilteredData(filteredData);
