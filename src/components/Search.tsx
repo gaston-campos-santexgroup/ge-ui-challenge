@@ -30,9 +30,11 @@ export const Search = () => {
     }
 
     let inputHandler = (e: { target: { value: string; }; }) => {
-        //convert input text to lower case
-        let lowerCase = e.target.value.toLowerCase();
-        setInputText(lowerCase);
+        // Remove everything from string except alphanumeric characters and whitespace,
+        // then collapses multiple adjacent whitespace to single spaces and later convert to lowercase.
+        const lowerCaseIgnorePunctuation = e.target.value.replace(/[^\w\s\']|_/g, "")
+            .replace(/\s+/g, " ").toLowerCase();
+        setInputText(lowerCaseIgnorePunctuation);
     };
 
     let keyDownHandler = (e: any) => {

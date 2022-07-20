@@ -2,14 +2,14 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-test('Should render 4 Harry Potter books with one image, isbn, gernes,title,author,published and description each', async () => {
+test('Should insert "haRrY ./$%&$%&  pOttER $%&$%&" and search, rendering the 4 Harry Potter books with one image, isbn, gernes,title including text "Harry Potter",author,published and description each', async () => {
   render(
     <App />
   );
 
   // Search for 'Harry' 
   const input = screen.getByLabelText('search book')
-  fireEvent.change(input, { target: { value: 'Harry' } })
+  fireEvent.change(input, { target: { value: 'Harry ./$%&$%&  Potter $%&$%&' } })
 
   // Simulate a click and search
   const button = await screen.findByRole('button');
@@ -23,7 +23,7 @@ test('Should render 4 Harry Potter books with one image, isbn, gernes,title,auth
   // checking that searching for 'Harry' returns 4 books
   expect(items.length).toBe(4);
 
-  // Checking that all books returned have one image, isbn, gernes,title,author,published and description
+  // Checking that all books returned have one image, isbn, gernes,title including text "Harry Potter",author,published and description
   for (const item of items) {
     const { getAllByLabelText } = within(item)
     const image = getAllByLabelText("image");
@@ -37,6 +37,7 @@ test('Should render 4 Harry Potter books with one image, isbn, gernes,title,auth
     expect(image.length).toBe(1);
     expect(gernes.length).toBe(1);
     expect(title.length).toBe(1);
+    expect(title[0].innerHTML).toContain("Harry Potter");
     expect(author.length).toBe(1);
     expect(published.length).toBe(1);
     expect(description.length).toBe(1);
