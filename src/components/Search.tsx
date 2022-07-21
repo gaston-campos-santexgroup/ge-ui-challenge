@@ -22,10 +22,12 @@ export const Search = () => {
             return (
                 searchTerm.split(" ").map(searchWord => {
                     return (
-                        every.title.toLowerCase().includes(searchWord) ||
-                        every.isbn.toLowerCase().includes(searchWord) ||
-                        every.description.toLowerCase().includes(searchWord) ||
-                        every.author.toLowerCase().includes(searchWord)
+                        searchWord ? (
+                            every.title.toLowerCase().includes(searchWord) ||
+                            every.isbn.toLowerCase().includes(searchWord) ||
+                            every.description.toLowerCase().includes(searchWord) ||
+                            every.author.toLowerCase().includes(searchWord)
+                        ) : false
                     )
                 }).findIndex(match => match) !== -1 ? true : false
 
@@ -37,7 +39,7 @@ export const Search = () => {
     let inputHandler = (e: { target: { value: string; }; }) => {
         // Remove everything from string except alphanumeric characters and whitespace,
         // then collapses multiple adjacent whitespace to single spaces and later convert to lowercase.
-        const lowerCaseIgnorePunctuation = e.target.value.replace(/[^\w\s\']|_/g, "")
+        const lowerCaseIgnorePunctuation = e.target.value.replace(/[^\w\s']|_/g, "")
             .replace(/\s+/g, " ").toLowerCase();
         setInputText(lowerCaseIgnorePunctuation);
     };
