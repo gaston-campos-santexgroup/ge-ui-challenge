@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# GE - Home Assignment Challenge
+
+Quick challenge to evaluate candidate to join GE Team.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Assignment
+
+Create a webpage with a Search component and a SearchResults component that allows a user to search through a list of books based on the user’s search criteria. You have some creative freedom over the searchbar’s UI, and the way that the books are displayed. 
+
+We’re not looking for anything too fancy. Autocompletion of search results, fuzzy matching, and suggested search terms are nice to have. It is okay for the app to return results based on individual words. However, the search should be case insensitive, and ignore punctuation. 
+
+You do not need to do any server-side work. This task should be purely UI based.
 
 ## Available Scripts
 
@@ -39,8 +49,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
