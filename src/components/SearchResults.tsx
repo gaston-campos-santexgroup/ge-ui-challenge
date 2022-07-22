@@ -1,22 +1,23 @@
-import { Book } from '../interfaces';
+import { SearchResult } from '../interfaces/searchResults';
 interface Search {
-    bookList: Array<Book>;
+    bookList: SearchResult[];
 }
 export const SearchResults: React.FC<Search> = ({ bookList }) => {
     return (
         < div className="search-list" id="search-list" role="list">
-            {bookList?.map((book) => (
-                <div className="search-item" key={book.isbn} role="listitem">
+            {bookList?.map((bookFound) => (
+
+                <div className="search-item" key={bookFound.item.isbn} role="listitem">
                     <div className="book-img">
-                        <img src={book.image} aria-label="image" alt={book.title} />
-                        <div className="isbn" aria-label="isbn">isbn: {book.isbn}</div>
+                        <img src={bookFound.item.image} aria-label="image" alt={bookFound.item.title} />
+                        <div className="isbn" aria-label="isbn">isbn: {bookFound.item.isbn}</div>
                     </div>
                     <div className="book-info">
-                        <div className="gernes" aria-label="gernes">{book.genres}</div>
-                        <div className="title" aria-label="title">{book.title}</div>
-                        <div className="author" aria-label="author">{book.author}</div>
-                        <div className="published" aria-label="published">{book.published}</div>
-                        <div className="description" aria-label="description">{book.description}</div>
+                        <div className="gernes" aria-label="gernes">{bookFound.item.genres}</div>
+                        <div className="title" aria-label="title">{bookFound.item.title}</div>
+                        <div className="author" aria-label="author">{bookFound.item.author}</div>
+                        <div className="published" aria-label="published">{bookFound.item.published}</div>
+                        <div className="description" aria-label="description">{bookFound.item.description}</div>
                     </div>
 
                 </div>

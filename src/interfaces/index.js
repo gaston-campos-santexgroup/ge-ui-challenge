@@ -1,2 +1,4 @@
+import { SearchResults } from './searchResults';
 import { Book } from './books';
-export { Book }
+
+export { Book, SearchResults }
